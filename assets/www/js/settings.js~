@@ -42,7 +42,7 @@ joCache.set("settings", function() {
 		for (var i = 0; i < thumpOptions.length; i++){
 			alert(thumpOptions[i]);
 			thumpyFileBox.setData(thumpOptions[i]);
-		}
+		});
 		//thumpyFileBox.setData(thumpOptions);
 	});
 	

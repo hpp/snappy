@@ -1,0 +1,36 @@
+var db = null
+
+function DBInit(){
+	db = window.openDatabase("SoundDB", "1.0", "SoundDB", 32x1024x1024);
+	db.transaction(populateDB, errorCB, successCB);
+}
+
+function queryDB(tx) {
+    tx.executeSql('SELECT * FROM SoundDB', [], querySuccess, errorCB);
+    db.transaction(populateDB, errorCB, successCB);
+}
+
+function populateDB(tx) {
+     tx.executeSql('CREATE TABLE IF NOT EXISTS Sound (id unique, isThump BOOLEAN, name varcahr(63))');
+     tx.executeSql('IF NOT EXISTS (SELECT * FROM Sound WHERE id=1) INSERT INTO Sound VALUES (1, true, "808bd2.mp3")');
+     tx.executeSql('if not exists (select * from SOund where id=2) INSERT INTO Sound VALUES (2, false, "chut_sd.mp3")');
+}
+
+function errorCB(err) {
+    alert("Error processing SQL: "+err.code);
+}
+
+function successCB() {
+    alert("success!");
+}
+
+function querySuccess(tx, results) {
+    console.log("Returned rows = " + results.rows.length);
+    // this will be true since it was a select statement and so rowsAffected was 0
+    if (!results.rowsAffected) {
+        console.log('No rows affected!');
+        return false;
+    }
+    // for an insert statement, this property will return the ID of the last inserted row
+    console.log("Last inserted row ID = " + results.insertId);
+}

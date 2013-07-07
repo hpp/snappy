@@ -11,7 +11,7 @@ joCache.set("about", function() {
 	
 	stopWatch();
 	
-	document.location = "http://www.mypromotank.com/hpp";
+	document.location = "http://www.mypromotank.com/hpp/node/3#";
 	
 	return card;
 });

@@ -2,17 +2,18 @@
  * This code is provided by Joe M Walter. It is for use with Thump N Snap.
  * 
  */
+
+
+
 var pos_left = false, pos_back = false;
 var watching = false;
 var autoReset = null;
 var tempo = null;
-var thumpDBIdx = null;
-var snapDBIdx = null;
-
 
 var d = new Date();
 var n = d.getTime();
 var set = false;
+
 
 // The watch id references the current `watchAcceleration`
 var watchID = null;
@@ -22,92 +23,35 @@ var thumpyMedia2 = null;
 var snappyMedia1 = null;
 var snappyMedia2 = null;
 var resetBeat = true;
-var path = "file:///android_asset/www/";
 var thumpyURI = "file:///android_asset/www/808bd2.mp3";
 var snappyURI = "file:///android_asset/www/chut_sd.mp3";
 
 
 // Wait for Cordova to load
 //
-document.addEventListener("deviceready", onDeviceReady, false);
-document.addEventListener("pause", stopWatch, false);
-document.addEventListener("resume", startWatch, false);
+//document.addEventListener("deviceready", onDeviceReady, false);
 
 // Cordova is ready
 //
-function onDeviceReady() {
-	//storage = window.localStorage;
-	tempo = Number(window.localStorage.getItem("tempo"));
-	autoReset = window.localStorage.getItem("autoReset");
-	thumpDBIdx = Number(window.localStorage.getItem("thumpDBIdx"));
-	snapDBIdx = Number(window.localStorage.getItem("snapDBIdx"));
-
-    //alert("autoReset="+autoReset+" tempo="+tempo+"thumpIdx="+thumpDBIdx+" snapDBIdx="+snapDBIdx);
-	console.log("autoReset="+autoReset+" tempo="+tempo);
-	if(autoReset==null){
-		autoReset = false;
-		localStorage.setItem("autoReset",autoReset);
-	}
-	if(tempo==null){
-		tempo=Math.floor(120*1000/32/60);
-		localStorage.setItem("tempo", tempo);
-	}
-	//alert("k");
-	if(thumpDBIdx==null){
-		thumpDBIdx=1;
-		localStorage.setItem("thumpDBIdx", thumpDBIdx);
-	}
-	//alert("k");
-
-	if(snapDBIdx==null){
-		snapDBIdx=2;
-		localStorage.setItem("snapDBIdx", snapDBIdx);
-	}
-	//alert("k");
-
-	//console.log("autoReset="+autoReset+" tempo="+tempo);
-	dbInit(thumpGetSoundCB);
-
-	//alert("ok");
-	//snappyURI = path + getSoundDBUri(snapDBIdx);
-	//alert("dbInit onto");
-	
-	//alert("made it to device ready");
-	//thumpyMedia1 = new Media(thumpyURI, onMediaSuccess, onMediaError);
-	//thumpyMedia2 = new Media(thumpyURI, onMediaSuccess, onMediaError);
-	//snappyMedia1 = new Media(snappyURI, onMediaSuccess, onMediaError);
-	//snappyMedia2 = new Media(snappyURI, onMediaSuccess, onMediaError);
-	console.log("watching="+watching);
-    if (watching) {startWatch();}
-    //var db = window.openDatabase("thumpy_db", "1.0", "Thumpy Sounds", 1000000);
-    //var db = window.openDatabase("snappy_db", "1.0", "Snappy Sounds", 1000000);
+//storage = window.localStorage;
+tempo = Number(window.localStorage.getItem("tempo"));
+autoReset = window.localStorage.getItem("autoReset");
+if(!autoReset){
+	autoReset = false;
+	localStorage.setItem("autoReset",autoReset);
 }
-
-function thumpGetSoundCB() {
-    //alert("wrote to db");
-    getSoundDBUri(thumpDBIdx, gotSoundUriCB);
-    getSoundDBUri(snapDBIdx, gotSoundUriCB);
+if(!tempo){
+	tempo=Math.floor(120*1000/32/60);
+	localStorage.setItem("tempo", tempo);
 }
+console.log("autoReset="+autoReset);
 
-function gotSoundUriCB(soundType, fileName){
-    //alert("starter back again");
-    if (soundType == 0) {
-        snappyURI = path + fileName;
-        //alert(snappyURI);
-        snappyMedia1 = new Media(snappyURI, onMediaSuccess, onMediaError);
-        snappyMedia2 = new Media(snappyURI, onMediaSuccess, onMediaError);
-    } else if (soundType == 1) {
-        thumpyURI = path + fileName;
-        //alert(thumpyURI);
-        thumpyMedia1 = new Media(thumpyURI, onMediaSuccess, onMediaError);
-        thumpyMedia2 = new Media(thumpyURI, onMediaSuccess, onMediaError);
-    }
-}
+//alert("made it here!");
 
 // Start watching the acceleration
 //
 function startWatch() {
-	//alert("made it to accel watch started!");
+	//alert("made it here too!");
     // Update acceleration every 3 seconds
 	//var tempo =  window.localStorage.getItem("tempo");
 	console.log("tempo="+tempo+"mspb")
@@ -245,7 +189,6 @@ function onAccelError() {
 //
 function onMediaSuccess() {
     console.log("playAudio():Audio Success");
-    //navigator.notification.vibrate(40);
 }
 
 

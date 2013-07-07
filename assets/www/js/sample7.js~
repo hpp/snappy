@@ -3,7 +3,8 @@ App = {
 	
 		// initialize jo
 		jo.load();
-		
+		dbInit();
+
 		/*
 		*/
 		

@@ -41,8 +41,8 @@ function onDeviceReady() {
 	autoReset = window.localStorage.getItem("autoReset");
 	thumpDBIdx = Number(window.localStorage.getItem("thumpDBIdx"));
 	snapDBIdx = Number(window.localStorage.getItem("snapDBIdx"));
-
-    //alert("autoReset="+autoReset+" tempo="+tempo+"thumpIdx="+thumpDBIdx+" snapDBIdx="+snapDBIdx);
+	
+    //alert("device Ready");
 	console.log("autoReset="+autoReset+" tempo="+tempo);
 	if(autoReset==null){
 		autoReset = false;
@@ -66,42 +66,29 @@ function onDeviceReady() {
 	//alert("k");
 
 	//console.log("autoReset="+autoReset+" tempo="+tempo);
-	dbInit(thumpGetSoundCB);
-
 	//alert("ok");
-	//snappyURI = path + getSoundDBUri(snapDBIdx);
+	dbInit();
+	
+	getSoundDBUri(thumpDBIdx, thumpSoundCB);
+	
+	snappyURI = path + getSoundDBUri(snapDBIdx);
 	//alert("dbInit onto");
 	
 	//alert("made it to device ready");
 	//thumpyMedia1 = new Media(thumpyURI, onMediaSuccess, onMediaError);
 	//thumpyMedia2 = new Media(thumpyURI, onMediaSuccess, onMediaError);
-	//snappyMedia1 = new Media(snappyURI, onMediaSuccess, onMediaError);
-	//snappyMedia2 = new Media(snappyURI, onMediaSuccess, onMediaError);
+	snappyMedia1 = new Media(snappyURI, onMediaSuccess, onMediaError);
+	snappyMedia2 = new Media(snappyURI, onMediaSuccess, onMediaError);
 	console.log("watching="+watching);
     if (watching) {startWatch();}
     //var db = window.openDatabase("thumpy_db", "1.0", "Thumpy Sounds", 1000000);
     //var db = window.openDatabase("snappy_db", "1.0", "Snappy Sounds", 1000000);
 }
 
-function thumpGetSoundCB() {
-    //alert("wrote to db");
-    getSoundDBUri(thumpDBIdx, gotSoundUriCB);
-    getSoundDBUri(snapDBIdx, gotSoundUriCB);
-}
-
-function gotSoundUriCB(soundType, fileName){
-    //alert("starter back again");
-    if (soundType == 0) {
-        snappyURI = path + fileName;
-        //alert(snappyURI);
-        snappyMedia1 = new Media(snappyURI, onMediaSuccess, onMediaError);
-        snappyMedia2 = new Media(snappyURI, onMediaSuccess, onMediaError);
-    } else if (soundType == 1) {
-        thumpyURI = path + fileName;
-        //alert(thumpyURI);
-        thumpyMedia1 = new Media(thumpyURI, onMediaSuccess, onMediaError);
-        thumpyMedia2 = new Media(thumpyURI, onMediaSuccess, onMediaError);
-    }
+function thumpSoundCB(fileName){
+	thumpyURI = path + fileName;
+	thumpyMedia1 = new Media(thumpyURI, onMediaSuccess, onMediaError);
+	thumpyMedia2 = new Media(thumpyURI, onMediaSuccess, onMediaError);
 }
 
 // Start watching the acceleration
@@ -245,7 +232,6 @@ function onAccelError() {
 //
 function onMediaSuccess() {
     console.log("playAudio():Audio Success");
-    //navigator.notification.vibrate(40);
 }
 
 

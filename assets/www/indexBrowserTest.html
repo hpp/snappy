@@ -3,17 +3,20 @@
 <head>
 	<meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="css/jo.css">
-	<!--
+    <!--
     <script type="text/javascript" charset="utf-8" src="cordova-2.7.0.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/thumpNsnapMechanics.js"></script>
 	-->
-	
-	<script type="text/javascript" charset="utf-8" src="js/thumpNsnapMechanics_browserTest.js"></script>
+	<script type="text/javascript" charset="utf-8" src="cordova-2.7.0.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/dbUtils.js"></ script>
+	<script type="text/javascript" charset="utf-8" src="js/browserTest.js"></script>
 </head>
 <body onload="App.load();">
 
 <!-- any static page content goes here -->
-
+<script type="text/javascript" charset="utf-8">
+	dbInit();
+</script>
 <!-- load jo library -->
 <script src="js/jo_min.js"></script>
 
