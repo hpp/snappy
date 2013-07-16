@@ -16,3 +16,21 @@ joCache.set("about", function() {
 	return card;
 });
 
+joCache.set("thumpSound", function() {
+	
+	stopWatch();
+	
+	document.location = "http://sampleswap.org/filebrowser-new.php?d=DRUMS+and+SINGLE+HITS%2Fkicks%2F";
+	
+	return card;
+});
+
+joCache.set("snapSound", function() {
+	
+	stopWatch();
+	
+	document.location = "http://sampleswap.org/filebrowser-new.php?d=DRUMS+and+SINGLE+HITS%2Fsnares%2F";
+	
+	return card;
+});
+

@@ -22,43 +22,65 @@ joCache.set("settings", function() {
 	var tempoHTML = new joHTML("<p id='tempo'>" + tempoText + "</p>");
 	
 	
-	var thumpOptions = [], thumpOptionsIdx = [];
-	var xtras = ["Download", "Browse"];
-	var snapOptions = [], snapOptionsIdx = [];
 	
 	//************************	
 	var thumpySoundLabel = new joLabel("Thumpy Sound File");
 	//var thumpyFileBox = new joHTML("<input type='file' value='file:///android_asset/www/808bd2.mp3' name='thumpy_sound'>");
 	
-	var thumpyFileBox = new joSelect(thumpOptions);
-		
-	getSoundOptions(1, function(opts,idxs){
-		thumpOptions = opts;
-		thumpOptions = thumpOptions.concat(xtras);
-		//alert("thumpOptions = " + thumpOptions);
-		thumpOptionsIdx = idxs;
-		
-		//thumpyFileBox.list = new joSelectList(thumpOptions);
-		for (var i = 0; i < thumpOptions.length; i++){
-			alert(thumpOptions[i]);
-			thumpyFileBox.setData(thumpOptions[i]);
-		});
-		//thumpyFileBox.setData(thumpOptions);
+	var thumpyFileBox = new joSelect(soundOptions[t], soundOptionsIdx[t].indexOf(thumpDBIdx));
+	thumpyFileBox.selectEvent.subscribe( function(v) {
+		changeSound(v,t);
 	});
 	
+	function changeSound(value,type){
+		fileName = soundOptions[type][value];
+		//alert(fileName);
+	
+		if (fileName == "Download"){
+			//goto website to download free drum kick sounds
+			if (type == isThumpy){
+				App.stack.push(joCache.get("thumpSound"));
+			} else {
+				App.stack.push(joCache.get("snapSound"));
+			}
+			
+		} else if (fileName == "Browse"){
+			//browse file system, move selected file to local dir
+			var soundInput = document.getElementById('soundInput');
+			soundInput.addEventListener('change', handleFileSelect, false);//function(){handleFileSelect(type);}, false);
+			//alert(thumpSoundInput);
+			soundInput.click();
+
+		} else {
+			//check if changed
+			if (soundOptionsIdx[type][value] != soundDBIdx[type]){
+				//update thumpDBIdx
+				soundDBIdx[type] = soundOptionsIdx[type][value];
+				//update sound file
+				gotSoundUriCB(type, fileName)
+			}		
+		}
+	
+	}
+
+	function addSoundToSoundMenu(type, fileName, idx){
+	    if (type == isThumpy){
+	        thumpyFileBox = new joSelect(soundOptions[type].push(fileName), soundOptionsIdx[t].indexOf(thumpDBIdx));
+	    }
+	}
+	
+	var invisibleHTML = new joControl('<input style="opacity:0;" type="file" name="soundInput" id="soundInput"/>');
+	invisibleHTML.changeEvent.subscribe(handleFileSelect);
+
 	//************************
 	var snappySoundLabel = new joLabel("Snappy Sound File");
 	//var snappyFileBox = new joHTML("<input type='file' value='file:///android_asset/www/808bd2.mp3' name='snappy_sound'>");
 		
-	var snappyFileBox = new joSelect(snapOptions);
-	
-	getSoundOptions(0, function(opts,idxs){
-		snapOptions = opts;
-		snapOptions.concat(xtras);
-		snapOptionsIdx = idxs;
+	var snappyFileBox = new joSelect(soundOptions[s], soundOptionsIdx[s].indexOf(snapDBIdx));
+	snappyFileBox.selectEvent.subscribe( function(v) {
+		changeSound(v,s);
 	});
-	
-	
+		
 	var backButton = new joButton("Back");
 	backButton.selectEvent.subscribe(goBack)
 	function goBack(){
@@ -76,9 +98,10 @@ joCache.set("settings", function() {
 			thumpySoundLabel,
 			thumpyFileBox,
 			snappySoundLabel,
-			snappyFileBox
+			snappyFileBox,
 		]),
-		backButton
+		backButton,
+		invisibleHTML
 	]);
 	
 	

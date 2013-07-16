@@ -1,36 +1,79 @@
-var db = null
+//var db = null;
 
-function DBInit(){
-	db = window.openDatabase("SoundDB", "1.0", "SoundDB", 32x1024x1024);
-	db.transaction(populateDB, errorCB, successCB);
-}
+function dbInit(onSuccessCB) {
+    //alert("dbInit");
+	var db = window.openDatabase("SoundDB", "1.0", "SoundDB", 32*1024*1024);
+	db.transaction(populateDB, errorCB, onSuccessCB);
+	//alert("dbInit out");
 
-function queryDB(tx) {
-    tx.executeSql('SELECT * FROM SoundDB', [], querySuccess, errorCB);
-    db.transaction(populateDB, errorCB, successCB);
 }
 
 function populateDB(tx) {
-     tx.executeSql('CREATE TABLE IF NOT EXISTS Sound (id unique, isThump BOOLEAN, name varcahr(63))');
-     tx.executeSql('IF NOT EXISTS (SELECT * FROM Sound WHERE id=1) INSERT INTO Sound VALUES (1, true, "808bd2.mp3")');
-     tx.executeSql('if not exists (select * from SOund where id=2) INSERT INTO Sound VALUES (2, false, "chut_sd.mp3")');
+	//tx.executeSql('DROP TABLE IF EXISTS Sound');
+	tx.executeSql('CREATE TABLE IF NOT EXISTS Sound (id INTEGER PRIMARY KEY, isThump INTEGER, name TEXT)');
+	tx.executeSql("insert or replace into sound (id, isThump, name) values (1, 1, '808bd2.mp3')");
+	tx.executeSql("insert or replace into sound (id, isThump, name) VALUES (2, 0, 'chut_sd.mp3')");
+    //tx.executeSql("INSERT INTO Sound (id, isThump, name) VALUES (1, 1, '808bd2.mp3')");
+    //tx.executeSql('select * from Sound where id=1');
+
 }
 
 function errorCB(err) {
-    alert("Error processing SQL: "+err.code);
+    //alert("Error processing SQL: Error Code "+err.code);
 }
 
 function successCB() {
-    alert("success!");
+    //alert("successfully grabbed sound from DB!");
 }
 
-function querySuccess(tx, results) {
+function getSoundDBUri(idx, cb) {
+	var sqlCmd = "SELECT * FROM Sound WHERE id="+idx;
+	//alert(sqlCmd);
+
+	var db = window.openDatabase("SoundDB", "1.0", "SoundDB", 32*1024*1024);
+	//db.transaction(qDB, errorCB, successCB);
+	//db.transaction({
+	//	onQueryDB: function(tx) {
+	//		queryDB(tx,sqlCmd,cb);
+	//	}
+	//}, errorCB, successCB);
+	
+	db.transaction(function(tx) {
+		queryDB(tx,sqlCmd,cb);
+	}, errorCB, successCB);
+
+}
+
+function qDB(tx){
+	//alert("transact");
+	tx.executeSql("SELECT * FROM Sound", [], rqDB, errorCB);
+}
+
+function rqDB(tx, results) {
+	//alert(" rows length = " + results.rows.length); 
+	for (i=0;i<results.rows.length;i++){
+		alert("row " + i + " id = " + results.rows.item(i).id);
+	}
+}
+
+function queryDB(tx, sqlCmd, cb) {
+    //alert('query db' + sqlCmd);
+    tx.executeSql(sqlCmd, [], function(tx, results) { 
+			querySuccess(tx,results,cb);
+	}, errorCB);
+}
+
+function querySuccess(tx, results, resultsCB) {
+	var fileName = results.rows.item(0).name;
+	var soundType = results.rows.item(0).isThump;
+	//alert('query success! name = ' + fileName + "; isThump = " + soundType);
     console.log("Returned rows = " + results.rows.length);
+    
     // this will be true since it was a select statement and so rowsAffected was 0
     if (!results.rowsAffected) {
         console.log('No rows affected!');
-        return false;
+        resultsCB("default thump goes here"); //the default thump sound
     }
-    // for an insert statement, this property will return the ID of the last inserted row
-    console.log("Last inserted row ID = " + results.insertId);
+    
+    resultsCB(soundType, fileName);   
 }

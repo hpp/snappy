@@ -1,6 +1,6 @@
 App = {
 	load: function() {
-	
+        console.log("jo load");
 		// initialize jo
 		jo.load();
 		

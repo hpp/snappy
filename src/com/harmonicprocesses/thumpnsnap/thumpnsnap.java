@@ -20,6 +20,8 @@
 package com.harmonicprocesses.thumpnsnap;
 
 import android.os.Bundle;
+
+
 import org.apache.cordova.*;
 
 public class thumpnsnap extends DroidGap

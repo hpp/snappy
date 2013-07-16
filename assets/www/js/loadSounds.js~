@@ -1,0 +1,25 @@
+var soundOptions = [ [], [] ], soundOptionsIdx = [ [], [] ];
+
+var thumpOptions = [], thumpOptionsIdx = [];
+var snapOptions = [], snapOptionsIdx = [];
+
+var xtras = ["Download", "Browse"];
+
+getSoundOptions(isThumpy, function(opts,idxs){
+	thumpOptions = opts;
+	thumpOptions = thumpOptions.concat(xtras);
+	thumpOptionsIdx = idxs;
+	soundOptions[isThumpy] = opts;
+	soundOptions[isThumpy] = soundOptions[isThumpy].concat(xtras);
+	soundOptionsIdx[isThumpy] = idxs;
+});
+		
+getSoundOptions(isSnappy, function(opts,idxs){
+	snapOptions = opts;
+	snapOptions = snapOptions.concat(xtras);
+	snapOptionsIdx = idxs;
+	soundOptions[s] = opts;
+	soundOptions[s] = soundOptions[s].concat(xtras);
+	soundOptionsIdx[s] = idxs;
+});
+	

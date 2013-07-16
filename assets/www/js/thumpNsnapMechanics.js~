@@ -8,7 +8,8 @@ var autoReset = null;
 var tempo = null;
 var thumpDBIdx = null;
 var snapDBIdx = null;
-
+var soundDBIdx = [ null, null];
+var isThumpy = 1, isSnappy = 0, t = 1, s = 0;
 
 var d = new Date();
 var n = d.getTime();
@@ -39,10 +40,10 @@ function onDeviceReady() {
 	//storage = window.localStorage;
 	tempo = Number(window.localStorage.getItem("tempo"));
 	autoReset = window.localStorage.getItem("autoReset");
-	thumpDBIdx = Number(window.localStorage.getItem("thumpDBIdx"));
-	snapDBIdx = Number(window.localStorage.getItem("snapDBIdx"));
-	
-    //alert("device Ready");
+	soundDBIdx[t] = Number(window.localStorage.getItem("thumpDBIdx"));
+	soundDBIdx[s] = Number(window.localStorage.getItem("snapDBIdx"));
+
+    //alert("autoReset="+autoReset+" tempo="+tempo+"thumpIdx="+thumpDBIdx+" snapDBIdx="+snapDBIdx);
 	console.log("autoReset="+autoReset+" tempo="+tempo);
 	if(autoReset==null){
 		autoReset = false;
@@ -53,42 +54,55 @@ function onDeviceReady() {
 		localStorage.setItem("tempo", tempo);
 	}
 	//alert("k");
-	if(thumpDBIdx==null){
-		thumpDBIdx=1;
-		localStorage.setItem("thumpDBIdx", thumpDBIdx);
+	if(soundDBIdx[t]==null){
+		soundDBIdx[t]=1;
+		localStorage.setItem("thumpDBIdx", soundDBIdx[t]);
 	}
 	//alert("k");
 
-	if(snapDBIdx==null){
-		snapDBIdx=2;
-		localStorage.setItem("snapDBIdx", snapDBIdx);
+	if(soundDBIdx[s]==null){
+		soundDBIdx[s]=2;
+		localStorage.setItem("snapDBIdx", soundDBIdx[s]);
 	}
 	//alert("k");
 
 	//console.log("autoReset="+autoReset+" tempo="+tempo);
+	dbInit(getSoundCB);
+
 	//alert("ok");
-	dbInit();
-	
-	getSoundDBUri(thumpDBIdx, thumpSoundCB);
-	
-	snappyURI = path + getSoundDBUri(snapDBIdx);
+	//snappyURI = path + getSoundDBUri(snapDBIdx);
 	//alert("dbInit onto");
 	
 	//alert("made it to device ready");
 	//thumpyMedia1 = new Media(thumpyURI, onMediaSuccess, onMediaError);
 	//thumpyMedia2 = new Media(thumpyURI, onMediaSuccess, onMediaError);
-	snappyMedia1 = new Media(snappyURI, onMediaSuccess, onMediaError);
-	snappyMedia2 = new Media(snappyURI, onMediaSuccess, onMediaError);
+	//snappyMedia1 = new Media(snappyURI, onMediaSuccess, onMediaError);
+	//snappyMedia2 = new Media(snappyURI, onMediaSuccess, onMediaError);
 	console.log("watching="+watching);
     if (watching) {startWatch();}
     //var db = window.openDatabase("thumpy_db", "1.0", "Thumpy Sounds", 1000000);
     //var db = window.openDatabase("snappy_db", "1.0", "Snappy Sounds", 1000000);
 }
 
-function thumpSoundCB(fileName){
-	thumpyURI = path + fileName;
-	thumpyMedia1 = new Media(thumpyURI, onMediaSuccess, onMediaError);
-	thumpyMedia2 = new Media(thumpyURI, onMediaSuccess, onMediaError);
+function getSoundCB() {
+    //alert("wrote to db");
+    getSoundDBUri(soundDBIdx[t], gotSoundUriCB);
+    getSoundDBUri(soundDBIdx[s], gotSoundUriCB);
+}
+
+function gotSoundUriCB(soundType, fileName){
+    //alert("starter back again");
+    if (soundType == isSnappy) {
+        snappyURI = path + fileName;
+        //alert(snappyURI);
+        snappyMedia1 = new Media(snappyURI, onMediaSuccess, onMediaError);
+        snappyMedia2 = new Media(snappyURI, onMediaSuccess, onMediaError);
+    } else if (soundType == isThumpy) {
+        thumpyURI = path + fileName;
+        //alert(thumpyURI);
+        thumpyMedia1 = new Media(thumpyURI, onMediaSuccess, onMediaError);
+        thumpyMedia2 = new Media(thumpyURI, onMediaSuccess, onMediaError);
+    }
 }
 
 // Start watching the acceleration
@@ -232,6 +246,7 @@ function onAccelError() {
 //
 function onMediaSuccess() {
     console.log("playAudio():Audio Success");
+    //navigator.notification.vibrate(40);
 }
 
 

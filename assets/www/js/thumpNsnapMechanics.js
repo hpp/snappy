@@ -8,7 +8,10 @@ var autoReset = null;
 var tempo = null;
 var thumpDBIdx = null;
 var snapDBIdx = null;
+var soundDBIdx = [ null, null];
+var isThumpy = 1, isSnappy = 0, t = 1, s = 0;
 
+window.URL = window.URL || window.webkitURL;
 
 var d = new Date();
 var n = d.getTime();
@@ -22,7 +25,8 @@ var thumpyMedia2 = null;
 var snappyMedia1 = null;
 var snappyMedia2 = null;
 var resetBeat = true;
-var path = "file:///android_asset/www/";
+var androidPath = "file:///android_asset/www/"; //this is only android, overright this
+var path = "";
 var thumpyURI = "file:///android_asset/www/808bd2.mp3";
 var snappyURI = "file:///android_asset/www/chut_sd.mp3";
 
@@ -36,14 +40,16 @@ document.addEventListener("resume", startWatch, false);
 // Cordova is ready
 //
 function onDeviceReady() {
+    console.log("device ready");
+    setPath();
+
 	//storage = window.localStorage;
 	tempo = Number(window.localStorage.getItem("tempo"));
 	autoReset = window.localStorage.getItem("autoReset");
-	thumpDBIdx = Number(window.localStorage.getItem("thumpDBIdx"));
-	snapDBIdx = Number(window.localStorage.getItem("snapDBIdx"));
+	soundDBIdx[t] = Number(window.localStorage.getItem("thumpDBIdx"));
+	soundDBIdx[s] = Number(window.localStorage.getItem("snapDBIdx"));
 
-    //alert("autoReset="+autoReset+" tempo="+tempo+"thumpIdx="+thumpDBIdx+" snapDBIdx="+snapDBIdx);
-	console.log("autoReset="+autoReset+" tempo="+tempo);
+    console.log("autoReset="+autoReset+" tempo="+tempo+"thumpIdx="+soundDBIdx[t]+" snapDBIdx="+soundDBIdx[s]);
 	if(autoReset==null){
 		autoReset = false;
 		localStorage.setItem("autoReset",autoReset);
@@ -52,21 +58,21 @@ function onDeviceReady() {
 		tempo=Math.floor(120*1000/32/60);
 		localStorage.setItem("tempo", tempo);
 	}
-	//alert("k");
-	if(thumpDBIdx==null){
-		thumpDBIdx=1;
-		localStorage.setItem("thumpDBIdx", thumpDBIdx);
+	//console.log("k");
+	if(soundDBIdx[t]==null||soundDBIdx[t]==0){
+		soundDBIdx[t]=1;
+		localStorage.setItem("thumpDBIdx", soundDBIdx[t]);
 	}
-	//alert("k");
+	//console.log("k");
 
-	if(snapDBIdx==null){
-		snapDBIdx=2;
-		localStorage.setItem("snapDBIdx", snapDBIdx);
+	if(soundDBIdx[s]==null||soundDBIdx[s]==0){
+		soundDBIdx[s]=2;
+		localStorage.setItem("snapDBIdx", soundDBIdx[s]);
 	}
-	//alert("k");
+	//console.log("k");
 
-	//console.log("autoReset="+autoReset+" tempo="+tempo);
-	dbInit(thumpGetSoundCB);
+	console.log("autoReset="+autoReset+" tempo="+tempo+"thumpIdx="+soundDBIdx[t]+" snapDBIdx="+soundDBIdx[s]);
+	dbInit(getSoundCB);
 
 	//alert("ok");
 	//snappyURI = path + getSoundDBUri(snapDBIdx);
@@ -83,26 +89,44 @@ function onDeviceReady() {
     //var db = window.openDatabase("snappy_db", "1.0", "Snappy Sounds", 1000000);
 }
 
-function thumpGetSoundCB() {
-    //alert("wrote to db");
-    getSoundDBUri(thumpDBIdx, gotSoundUriCB);
-    getSoundDBUri(snapDBIdx, gotSoundUriCB);
+function getSoundCB() {
+    console.log("wrote to db");
+    getSoundDBUri(soundDBIdx[t], gotSoundUriCB);
+    getSoundDBUri(soundDBIdx[s], gotSoundUriCB);
 }
 
 function gotSoundUriCB(soundType, fileName){
-    //alert("starter back again");
-    if (soundType == 0) {
-        snappyURI = path + fileName;
+    console.log("Got Sound file " + fileName + "; type = " + soundType);
+    if (soundType == isSnappy) {
+        snappyURI = fileName;
         //alert(snappyURI);
         snappyMedia1 = new Media(snappyURI, onMediaSuccess, onMediaError);
         snappyMedia2 = new Media(snappyURI, onMediaSuccess, onMediaError);
-    } else if (soundType == 1) {
-        thumpyURI = path + fileName;
+    } else if (soundType == isThumpy) {
+        thumpyURI = fileName;
         //alert(thumpyURI);
         thumpyMedia1 = new Media(thumpyURI, onMediaSuccess, onMediaError);
         thumpyMedia2 = new Media(thumpyURI, onMediaSuccess, onMediaError);
     }
 }
+
+function setPath(){
+    console.log("setting path");
+    function fail(error){alert("failed to set path " + error.code)}
+
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0,
+    function onFileSystemSuccess(fileSystem) {
+        fileSystem.root.getFile("dummy.html", {create: true, exclusive: false},
+        function gotFileEntry(fileEntry) {
+            path = fileEntry.fullPath.replace("dummy.html","ThumpNSnap/");
+            fileEntry.remove();
+            fileSystem.root.getDirectory("ThumpNSnap", {create: true, exclusive: false},
+            function gotDirectoryEntry(dirEntry){
+                console.log("found storage directory" + dirEntry.fullPath);
+            }, fail);
+        }, fail);
+    }, fail);
+};
 
 // Start watching the acceleration
 //

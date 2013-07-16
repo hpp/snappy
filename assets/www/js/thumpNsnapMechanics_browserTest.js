@@ -1,19 +1,19 @@
 /**
  * This code is provided by Joe M Walter. It is for use with Thump N Snap.
- * 
+ *
  */
-
-
-
 var pos_left = false, pos_back = false;
 var watching = false;
 var autoReset = null;
 var tempo = null;
+var thumpDBIdx = null;
+var snapDBIdx = null;
+var soundDBIdx = [ null, null];
+var isThumpy = 1, isSnappy = 0, t = 1, s = 0;
 
 var d = new Date();
 var n = d.getTime();
 var set = false;
-
 
 // The watch id references the current `watchAcceleration`
 var watchID = null;
@@ -23,35 +23,92 @@ var thumpyMedia2 = null;
 var snappyMedia1 = null;
 var snappyMedia2 = null;
 var resetBeat = true;
+var path = "file:///android_asset/www/";
 var thumpyURI = "file:///android_asset/www/808bd2.mp3";
 var snappyURI = "file:///android_asset/www/chut_sd.mp3";
 
 
 // Wait for Cordova to load
 //
-//document.addEventListener("deviceready", onDeviceReady, false);
+document.addEventListener("deviceready", onDeviceReady, false);
+document.addEventListener("pause", stopWatch, false);
+document.addEventListener("resume", startWatch, false);
 
 // Cordova is ready
 //
-//storage = window.localStorage;
-tempo = Number(window.localStorage.getItem("tempo"));
-autoReset = window.localStorage.getItem("autoReset");
-if(!autoReset){
-	autoReset = false;
-	localStorage.setItem("autoReset",autoReset);
-}
-if(!tempo){
-	tempo=Math.floor(120*1000/32/60);
-	localStorage.setItem("tempo", tempo);
-}
-console.log("autoReset="+autoReset);
+function onDeviceReady() {
+	//storage = window.localStorage;
+	tempo = Number(window.localStorage.getItem("tempo"));
+	autoReset = window.localStorage.getItem("autoReset");
+	soundDBIdx[t] = Number(window.localStorage.getItem("thumpDBIdx"));
+	soundDBIdx[s] = Number(window.localStorage.getItem("snapDBIdx"));
 
-//alert("made it here!");
+    //alert("autoReset="+autoReset+" tempo="+tempo+"thumpIdx="+thumpDBIdx+" snapDBIdx="+snapDBIdx);
+	console.log("autoReset="+autoReset+" tempo="+tempo);
+	if(autoReset==null){
+		autoReset = false;
+		localStorage.setItem("autoReset",autoReset);
+	}
+	if(tempo==null){
+		tempo=Math.floor(120*1000/32/60);
+		localStorage.setItem("tempo", tempo);
+	}
+	//alert("k");
+	if(soundDBIdx[t]==null){
+		soundDBIdx[t]=1;
+		localStorage.setItem("thumpDBIdx", soundDBIdx[t]);
+	}
+	//alert("k");
+
+	if(soundDBIdx[s]==null){
+		soundDBIdx[s]=2;
+		localStorage.setItem("snapDBIdx", soundDBIdx[s]);
+	}
+	//alert("k");
+
+	//console.log("autoReset="+autoReset+" tempo="+tempo);
+	dbInit(getSoundCB);
+
+	//alert("ok");
+	//snappyURI = path + getSoundDBUri(snapDBIdx);
+	//alert("dbInit onto");
+
+	//alert("made it to device ready");
+	//thumpyMedia1 = new Media(thumpyURI, onMediaSuccess, onMediaError);
+	//thumpyMedia2 = new Media(thumpyURI, onMediaSuccess, onMediaError);
+	//snappyMedia1 = new Media(snappyURI, onMediaSuccess, onMediaError);
+	//snappyMedia2 = new Media(snappyURI, onMediaSuccess, onMediaError);
+	console.log("watching="+watching);
+    if (watching) {startWatch();}
+    //var db = window.openDatabase("thumpy_db", "1.0", "Thumpy Sounds", 1000000);
+    //var db = window.openDatabase("snappy_db", "1.0", "Snappy Sounds", 1000000);
+}
+
+function getSoundCB() {
+    //alert("wrote to db");
+    getSoundDBUri(soundDBIdx[t], gotSoundUriCB);
+    getSoundDBUri(soundDBIdx[s], gotSoundUriCB);
+}
+
+function gotSoundUriCB(soundType, fileName){
+    //alert("starter back again");
+    if (soundType == isSnappy) {
+        snappyURI = path + fileName;
+        alert(snappyURI);
+        snappyMedia1 = new Media(snappyURI, onMediaSuccess, onMediaError);
+        snappyMedia2 = new Media(snappyURI, onMediaSuccess, onMediaError);
+    } else if (soundType == isThumpy) {
+        thumpyURI = path + fileName;
+        alert(thumpyURI);
+        thumpyMedia1 = new Media(thumpyURI, onMediaSuccess, onMediaError);
+        thumpyMedia2 = new Media(thumpyURI, onMediaSuccess, onMediaError);
+    }
+}
 
 // Start watching the acceleration
 //
 function startWatch() {
-	//alert("made it here too!");
+	//alert("made it to accel watch started!");
     // Update acceleration every 3 seconds
 	//var tempo =  window.localStorage.getItem("tempo");
 	console.log("tempo="+tempo+"mspb")
@@ -81,8 +138,8 @@ function onAccelSuccess(acceleration) {
  	if (autoReset==true||autoReset=="true"){
  		onAutoReset(acceleration);
  		return;
- 	} 
-	 
+ 	}
+
  	//console.log("autoResetfalse="+autoReset);
  	if (acceleration.x<-0.5){
  		resetBeat = true;
@@ -104,14 +161,14 @@ function onAccelSuccess(acceleration) {
  			}
  			resetBeat=false;
  		}
- 	}  
+ 	}
 }
 
 function onAutoReset(a){
 	//alert("made it to onAutoReset");
 	if (a.x<-0.5){
 		if (a.z<-0.5){
-			leftBack();			
+			leftBack();
 		} else if (a.z>0.5){
 			leftFront();
 		}
@@ -189,13 +246,14 @@ function onAccelError() {
 //
 function onMediaSuccess() {
     console.log("playAudio():Audio Success");
+    //navigator.notification.vibrate(40);
 }
 
 
-// onError Callback 
+// onError Callback
 //
 function onMediaError(error) {
-    alert('code: '    + error.code    + '\n' + 
+    alert('code: '    + error.code    + '\n' +
           'message: ' + error.message + '\n');
 }
 
