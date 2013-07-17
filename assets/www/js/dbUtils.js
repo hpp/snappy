@@ -10,7 +10,7 @@ function dbInit(onSuccessCB) {
 
 function populateDB(tx) {
 	console.log("populating DB");
-	tx.executeSql('DROP TABLE IF EXISTS Sound');
+	//tx.executeSql('DROP TABLE IF EXISTS Sound');
 	tx.executeSql('CREATE TABLE IF NOT EXISTS Sound (id INTEGER PRIMARY KEY, isThump INTEGER, name TEXT)');
 	tx.executeSql("insert or replace into Sound (id, isThump, name) VALUES (1, 1, 'bendybass.mp3')");
     tx.executeSql("insert or replace into Sound (id, isThump, name) VALUES (2, 0, 'clappy_snare.mp3')");
