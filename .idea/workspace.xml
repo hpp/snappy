@@ -29,14 +29,7 @@
     <list default="true" id="a3a645b5-14a7-46b3-910d-b6da3ee74272" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/assets/www/808bd2.mp3" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/assets/www/chut_sd.mp3" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/xml/config.xml" afterPath="$PROJECT_DIR$/res/xml/config.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/js/dbUtils.js" afterPath="$PROJECT_DIR$/assets/www/js/dbUtils.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/js/fileHandler.js" afterPath="$PROJECT_DIR$/assets/www/js/fileHandler.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/index.html" afterPath="$PROJECT_DIR$/assets/www/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/js/loadSounds.js" afterPath="$PROJECT_DIR$/assets/www/js/loadSounds.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/js/settings.js" afterPath="$PROJECT_DIR$/assets/www/js/settings.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/js/thumpNsnapMechanics.js" afterPath="$PROJECT_DIR$/assets/www/js/thumpNsnapMechanics.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="snappy.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -108,7 +101,7 @@
       <file leaf-file-name="thumpNsnapMechanics.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/www/js/thumpNsnapMechanics.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="212" column="18" selection-start="6983" selection-end="6983" vertical-scroll-proportion="0.5563063" vertical-offset="3569" max-vertical-offset="6336">
+            <state line="50" column="57" selection-start="1495" selection-end="1495" vertical-scroll-proportion="-4.6621623" vertical-offset="2970" max-vertical-offset="6354">
               <folding />
             </state>
           </provider>
@@ -135,7 +128,7 @@
       <file leaf-file-name="settings.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/www/js/settings.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="47" selection-start="267" selection-end="267" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2520">
+            <state line="7" column="47" selection-start="267" selection-end="267" vertical-scroll-proportion="0.0" vertical-offset="1806" max-vertical-offset="2520">
               <folding />
             </state>
           </provider>
@@ -214,8 +207,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1967" />
-    <option name="y" value="132" />
+    <option name="x" value="1966" />
+    <option name="y" value="133" />
     <option name="width" value="1676" />
     <option name="height" value="933" />
   </component>
@@ -668,7 +661,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1967" y="132" width="1676" height="933" extended-state="0" />
+    <frame x="1966" y="133" width="1676" height="933" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -885,7 +878,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/www/js/thumpNsnapMechanics.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="212" column="18" selection-start="6983" selection-end="6983" vertical-scroll-proportion="0.5563063" vertical-offset="3569" max-vertical-offset="6336">
+        <state line="50" column="57" selection-start="1495" selection-end="1495" vertical-scroll-proportion="-4.6621623" vertical-offset="2970" max-vertical-offset="6354">
           <folding />
         </state>
       </provider>

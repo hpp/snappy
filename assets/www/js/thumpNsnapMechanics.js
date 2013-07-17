@@ -11,6 +11,7 @@ var snapDBIdx = null;
 var soundDBIdx = [ null, null];
 var toggleImgReady = [ 1, 1];
 var isThumpy = 1, isSnappy = 0, t = 1, s = 0;
+var currentCard = "Main";
 
 window.URL = window.URL || window.webkitURL;
 
@@ -36,8 +37,8 @@ var snappyURI = "file:///android_asset/www/chut_sd.mp3";
 // Wait for Cordova to load
 //
 document.addEventListener("deviceready", onDeviceReady, false);
-document.addEventListener("pause", stopWatch(currentCard), false);
-document.addEventListener("resume", startWatch("Main"), false); //only play if currentCard == Main
+document.addEventListener("pause", function() {stopWatch(currentCard);}, false);
+document.addEventListener("resume", function() {startWatch("Main");}, false); //only play if currentCard == Main
 
 // Cordova is ready
 //
@@ -154,7 +155,7 @@ function startWatch(thisCard) {
 
 // Stop watching the acceleration
 //
-var currentCard
+
 
 function stopWatch(thisCard) {
     if (watchID) {
