@@ -37,12 +37,46 @@ function gotFileWriter(fileWriter, file, type, cb) {
 
 function fail(error) {
     //alert("error");
-    alert("error " + error.code);
+    alert("file handler error " + error.code);
     if (error.code == FileError.PATH_EXISTS_ERR){
         alert("The file already exists.");
     }
 }
 
+function findSoundFiles(sType, cb) {
+    console.log("find Sound Files");
+    if (sType){var sFolder = "thumps";}else{var sFolder = "snaps";}
+    sFolder = androidPath + "audio/" + sFolder;
+    console.log("sound folder = " + sFolder);
 
 
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
+          findSFgotFS(fs,sFolder,cb);
+    }, fail);
+}
 
+function findSFgotFS(fileSystem, sFolder,cb) {
+    console.log("find SF got file System");
+
+    fileSystem.root.getDirectory(sFolder, {create: false, exclusive: false}, function(dirEntry){
+        findSFgotDir(dirEntry, cb)
+    }, fail);
+}
+
+function findSFgotDir(dirEntry, cb) {
+    console.log("find SF got Directory Entry");
+
+    var dirReader = dirEntry.createReader();
+    dirReader.readEntries(function(e){findSFdirEntries(e,cb);}, fail);
+}
+
+function findSFdirEntries(entries,cb){
+    console.log("find SF directory entries");
+
+    var i;
+    var soundFiles = [];
+    for (i=0; i<entries.length; i++) {
+        soundFiles.push(entries[i].name);
+    }
+    cb(soundFiles);
+}

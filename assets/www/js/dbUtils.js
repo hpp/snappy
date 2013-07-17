@@ -12,8 +12,38 @@ function populateDB(tx) {
 	console.log("populating DB");
 	tx.executeSql('DROP TABLE IF EXISTS Sound');
 	tx.executeSql('CREATE TABLE IF NOT EXISTS Sound (id INTEGER PRIMARY KEY, isThump INTEGER, name TEXT)');
-	tx.executeSql("insert or replace into Sound (id, isThump, name) values (1, 1, '" + androidPath + "808bd2.mp3')");
-	tx.executeSql("insert or replace into Sound (id, isThump, name) VALUES (2, 0, '" + androidPath + "chut_sd.mp3')");
+	tx.executeSql("insert or replace into Sound (id, isThump, name) VALUES (1, 1, 'bendybass.mp3')");
+    tx.executeSql("insert or replace into Sound (id, isThump, name) VALUES (2, 0, 'clappy_snare.mp3')");
+    tx.executeSql("insert or replace into Sound (id, isThump, name) VALUES (3, 0, 'chunky_snare.mp3')");
+    tx.executeSql("insert or replace into Sound (id, isThump, name) VALUES (4, 0, 'chut_sd.mp3')");
+    tx.executeSql("insert or replace into Sound (id, isThump, name) VALUES (5, 0, 'almost_vox_snare.mp3')");
+    tx.executeSql("insert or replace into Sound (id, isThump, name) VALUES (6, 0, 'elecsnare.mp3')");
+	tx.executeSql("insert or replace into Sound (id, isThump, name) VALUES (7, 0, 'hisd808.mp3')");
+    tx.executeSql("insert or replace into Sound (id, isThump, name) VALUES (8, 0, 'low_crunch.mp3')");
+    tx.executeSql("insert or replace into Sound (id, isThump, name) VALUES (9, 1, 'analog_sharp_kick.mp3')");
+    tx.executeSql("insert or replace into Sound (id, isThump, name) VALUES (10, 1, '808bd2.mp3')");
+    tx.executeSql("insert or replace into Sound (id, isThump, name) VALUES (11, 1, 'BT0AAD0.mp3')");
+    tx.executeSql("insert or replace into Sound (id, isThump, name) VALUES (12, 1, 'BTAA0D0.mp3')");
+    tx.executeSql("insert or replace into Sound (id, isThump, name) VALUES (13, 1, 'drivinghard.mp3')");
+    tx.executeSql("insert or replace into Sound (id, isThump, name) VALUES (14, 1, 'fastbd.mp3')");
+
+	var j = 0;
+	/*
+	findSoundFiles(isThumpy, function(thumps){
+        for (i = 0; i<thumps.length; i++){
+            tx.executeSql("insert or replace into Sound (id, isThump, name) values (" +
+            i + ", 1, '" + androidPath + "audio/thumps/" + thumps[i] + "')");
+            j = i;
+        }
+	});
+    findSoundFiles(isSnappy, function(snaps){
+        for (i = 0; i<thumps.length; i++){
+            tx.executeSql("insert or replace into Sound (id, isThump, name) values (" +
+            ++j + ", 1, '" + androidPath + "audio/snaps/" + snaps[i] + "')");
+        }
+    });//*/
+    console.log("DB populated");
+	//tx.executeSql("insert or replace into Sound (id, isThump, name) VALUES (2, 0, '" + androidPath + "chut_sd.mp3')");
     //tx.executeSql("INSERT INTO Sound (id, isThump, name) VALUES (1, 1, '808bd2.mp3')");
     //tx.executeSql('select * from Sound where id=1');
 
@@ -79,8 +109,10 @@ function queryDB(tx, sqlCmd, cb, successCB) {
 }
 
 function queryIdxSuccess(tx, results, resultsCB) {
-	var fileName = results.rows.item(0).name;
-	var soundType = results.rows.item(0).isThump;
+    if (results.rows.length > 0){
+	    var fileName = results.rows.item(0).name;
+	    var soundType = results.rows.item(0).isThump;
+	}
 	//alert('query success! name = ' + fileName + "; isThump = " + soundType);
     console.log("Returned rows = " + results.rows.length);
     

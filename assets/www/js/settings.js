@@ -1,11 +1,11 @@
 joCache.set("settings", function() {
 	//turn off the snaps
-	stopWatch();
+	stopWatch("settings");
 	
 	var autoResetToggle = new joToggle(autoReset).changeEvent.subscribe(toggleAutoRest);
 	function toggleAutoRest(){
 		autoReset = !autoReset;	
-		console.log(autoReset);	
+		console.log("auto reset changed to " + autoReset);
 	}
 		
 	var autoResetControl = new joFlexrow([
@@ -58,6 +58,10 @@ joCache.set("settings", function() {
 			//soundInput.dispatchEvent(newFileEvent);
 
 		} else {
+		    //Play sound
+            var tempMedia = new Media(androidPath + soundFolder[type] + fileName);
+            tempMedia.play();
+
 			//check if changed
 			if (soundOptionsIdx[type][value] != soundDBIdx[type]){
 				//update thumpDBIdx
@@ -71,7 +75,7 @@ joCache.set("settings", function() {
 
 	function addSoundToSoundMenu(type, fileName, idx){
 	    console.log("add sound to sound menu. type = " + type + ", file = " + fileName + ", idx = " + idx);
-		soundOptionsAdd(fileName);
+		soundOptionsAdd(type, fileName);
 		soundOptionsIdx[type].push(idx);
 		soundDBIdx[type]=idx;
 	    if (type == isThumpy){
@@ -104,7 +108,7 @@ joCache.set("settings", function() {
 	function goBack(){
 		App.stack.pop();
 		//turn on the snaps
-		startWatch();
+		startWatch("settings");
 	}
 	
 	var card = new joCard([
