@@ -4,6 +4,10 @@ joCache.set("menu", function() {
 		{ title: "More", id: "more" },
 		{ title: "About", id: "about" }
 	]).selectEvent.subscribe(function(id) {
+	    if(id=="settings"){
+	        stopWatch();
+	        watching = false;
+	    }
 		App.stack.push(joCache.get(id));
 		pop();
 	});

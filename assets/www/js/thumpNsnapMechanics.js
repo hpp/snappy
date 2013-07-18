@@ -4,10 +4,8 @@
  */
 var pos_left = false, pos_back = false;
 var watching = false;
-var autoReset = null;
-var tempo = null;
-var thumpDBIdx = null;
-var snapDBIdx = null;
+var autoReset = false;
+var tempo = 0;
 var soundDBIdx = [ null, null];
 var toggleImgReady = [ 1, 1];
 var isThumpy = 1, isSnappy = 0, t = 1, s = 0;
@@ -22,10 +20,10 @@ var set = false;
 // The watch id references the current `watchAcceleration`
 var watchID = null;
 // media variables
-var thumpyMedia1 = null;
-var thumpyMedia2 = null;
-var snappyMedia1 = null;
-var snappyMedia2 = null;
+var numberOfSnaps = 4;
+var thumpyMedia = new Array(numberOfSnaps);
+var snappyMedia = new Array(numberOfSnaps);
+
 var resetBeat = true;
 var androidPath = "file:///android_asset/www/"; //this is only android, overright this
 var soundFolder = ["audio/snaps/","audio/thumps/"];
@@ -37,8 +35,8 @@ var snappyURI = "file:///android_asset/www/chut_sd.mp3";
 // Wait for Cordova to load
 //
 document.addEventListener("deviceready", onDeviceReady, false);
-document.addEventListener("pause", function() {stopWatch(currentCard);}, false);
-document.addEventListener("resume", function() {startWatch("Main");}, false); //only play if currentCard == Main
+document.addEventListener("pause", stopWatch(), false);
+document.addEventListener("resume", startWatch(), false); //only play if currentCard == Main
 
 // Cordova is ready
 //
@@ -49,16 +47,20 @@ function onDeviceReady() {
 	//storage = window.localStorage;
 	tempo = Number(window.localStorage.getItem("tempo"));
 	autoReset = window.localStorage.getItem("autoReset");
+	if (autoReset === 'true'|| autoReset === true){
+	    autoReset = true;
+	}else{ autoReset = false;}
+
 	soundDBIdx[t] = Number(window.localStorage.getItem("thumpDBIdx"));
 	soundDBIdx[s] = Number(window.localStorage.getItem("snapDBIdx"));
 
     console.log("autoReset="+autoReset+" tempo="+tempo+"thumpIdx="+soundDBIdx[t]+" snapDBIdx="+soundDBIdx[s]);
-	if(autoReset==null){
+	if(autoReset==null||typeof autoReset != 'boolean'){
 		autoReset = false;
 		localStorage.setItem("autoReset",autoReset);
 	}
-	if(tempo==null){
-		tempo=Math.floor(120*1000/32/60);
+	if(tempo==null||tempo==0){
+		tempo=Math.floor(60000/(120*32)); //120 bpm => msp 16th beats (32nd for reset)
 		localStorage.setItem("tempo", tempo);
 	}
 	//console.log("k");
@@ -86,9 +88,7 @@ function onDeviceReady() {
 	//thumpyMedia2 = new Media(thumpyURI, onMediaSuccess, onMediaError);
 	//snappyMedia1 = new Media(snappyURI, onMediaSuccess, onMediaError);
 	//snappyMedia2 = new Media(snappyURI, onMediaSuccess, onMediaError);
-	console.log("watching="+watching);
-	currentCard = "Main";
-    if (watching) {startWatch(currentCard);}
+
     //var db = window.openDatabase("thumpy_db", "1.0", "Thumpy Sounds", 1000000);
     //var db = window.openDatabase("snappy_db", "1.0", "Snappy Sounds", 1000000);
 }
@@ -96,24 +96,43 @@ function onDeviceReady() {
 function getSoundCB() {
     console.log("wrote to db");
     getSoundDBUri(soundDBIdx[t], gotSoundUriCB);
-    getSoundDBUri(soundDBIdx[s], gotSoundUriCB);
+    getSoundDBUri(soundDBIdx[s], function(sType,fName){
+        gotSoundUriCB(sType,fName,function(){
+        console.log("watching="+watching);
+        currentCard = "Main";
+        if (watching==true){startWatch(currentCard);}
+        loadSounds();
+        });
+    });
 }
 
-function gotSoundUriCB(soundType, fileName){
+function gotSoundUriCB(soundType, fileName, cb){
     console.log("Got Sound file " + fileName + "; type = " + soundType);
     if (soundType == isSnappy) {
         snappyURI = androidPath + soundFolder[s] + fileName;
         console.log("snap sound = " + snappyURI);
         //alert(snappyURI);
-        snappyMedia1 = new Media(snappyURI, onMediaSuccess, onMediaError);
-        snappyMedia2 = new Media(snappyURI, onMediaSuccess, onMediaError);
+        snappyMedia =loadMedia(snappyURI, snappyMedia);
+        //snappyMedia1 = new Media(snappyURI, onMediaSuccess, onMediaError);
+        //snappyMedia2 = new Media(snappyURI, onMediaSuccess, onMediaError);
     } else if (soundType == isThumpy) {
         thumpyURI = androidPath + soundFolder[t] + fileName;
         console.log("thump sound = " + thumpyURI);
         //alert(thumpyURI);
-        thumpyMedia1 = new Media(thumpyURI, onMediaSuccess, onMediaError);
-        thumpyMedia2 = new Media(thumpyURI, onMediaSuccess, onMediaError);
+        thumpyMedia = loadMedia(thumpyURI,thumpyMedia);
+        //thumpyMedia1 = new Media(thumpyURI, onMediaSuccess, onMediaError);
+        //thumpyMedia2 = new Media(thumpyURI, onMediaSuccess, onMediaError);
     }
+    if(cb){
+        cb();
+    }
+}
+
+function loadMedia(URI, MediaArray) {
+    for (i=0;i<MediaArray.length;i++){
+        MediaArray[i]=new Media(URI, onMediaSuccess, onMediaError);
+    }
+    return MediaArray;
 }
 
 function setPath(){
@@ -136,20 +155,21 @@ function setPath(){
 
 // Start watching the acceleration
 //
-function startWatch(thisCard) {
+function startWatch() {
 	//alert("made it to accel watch started!");
     // Update acceleration every 3 seconds
 	//var tempo =  window.localStorage.getItem("tempo");
-	if (thisCard!=currentCard){return;}
-	currentCard=="Main";
+	//if (thisCard!=currentCard){return;}
+	//currentCard=="Main";
 
 	console.log("tempo="+tempo+"mspb")
 	if(typeof tempo != "number"){
 		alert("tempo is not a Number, tempo is a " + typeof tempo);
 	}
     var options = { frequency: tempo};
-
-    watchID = navigator.accelerometer.watchAcceleration(onAccelSuccess, onAccelError, options);
+    if(!watchID && watching==true){
+        watchID = navigator.accelerometer.watchAcceleration(onAccelSuccess, onAccelError, options);
+    }
 }
 
 
@@ -157,25 +177,35 @@ function startWatch(thisCard) {
 //
 
 
-function stopWatch(thisCard) {
+function stopWatch() {
+    console.log("stop watch, watch id = " + watchID);
     if (watchID) {
         navigator.accelerometer.clearWatch(watchID);
         watchID = null;
     }
-    currentCard = thisCard;
+    //currentCard = thisCard;
 }
 
 // onSuccess: Get a snapshot of the current acceleration
 //
 function onAccelSuccess(acceleration) {
-	//var autoReset = window.localStorage.getItem("autoReset");
-	//console.log("autoReset="+autoReset+" from Accel");
- 	if (autoReset==true||autoReset=="true"){
- 		onAutoReset(acceleration);
- 		return;
- 	} 
-	 
- 	//console.log("autoResetfalse="+autoReset);
+    //var autoReset = window.localStorage.getItem("autoReset");
+    //console.log("autoReset="+autoReset+" from Accel");
+    try {
+        if (autoReset==true||autoReset=="true"){
+            advancedAutoReset(acceleration);
+            return;
+        } else {
+            normalAutoReset(acceleration);
+        }
+    } catch(e) {
+        if(watching==false){stopWatch();}
+        console.log("error handling acceleration, " + e.message);
+    }
+}
+
+function normalAutoReset(acceleration){
+    //console.log("autoResetfalse="+autoReset);
  	if (acceleration.x<-0.5){
  		resetBeat = true;
  		if (acceleration.z<0){
@@ -188,15 +218,15 @@ function onAccelSuccess(acceleration) {
  	} else if (acceleration.x>0.5) {
  		if (resetBeat==true){
  			if (acceleration.z<0){
- 				thumpyMedia1.getCurrentPosition(onThumpyUpdate);
+ 				thumpyMedia[0].getCurrentPosition(onThumpyUpdate);
  				document.getElementById("thumpy_img").src="thumpy_stomp.png";
  			} else {
- 				snappyMedia1.getCurrentPosition(onSnappyUpdate);
+ 				snappyMedia[0].getCurrentPosition(onSnappyUpdate);
  				document.getElementById("snappy_img").src="snappy_snap.png";
  			}
  			resetBeat=false;
  		}
- 	}  
+ 	}
 }
 
 function toggleImg(sType){
@@ -220,7 +250,7 @@ function toggleImg(sType){
     }
 }
 
-function onAutoReset(a){
+function advancedAutoReset(a){
 	//alert("made it to onAutoReset");
 	if (a.x<-0.5){
 		if (a.z<-0.5){
@@ -239,7 +269,7 @@ function onAutoReset(a){
 
 function leftBack(){
 	if (pos_left==true && pos_back==true) {return;}
-	thumpyMedia1.getCurrentPosition(onThumpyUpdate);
+	thumpyMedia[0].getCurrentPosition(onThumpyUpdate);
 	toggleImg(isThumpy);
 	pos_left = true;
 	pos_back = true;
@@ -247,7 +277,7 @@ function leftBack(){
 
 function leftFront(){
 	if (pos_left==true && pos_back!=true) {return;}
-	snappyMedia1.getCurrentPosition(onSnappyUpdate);
+	snappyMedia[0].getCurrentPosition(onSnappyUpdate);
 	toggleImg(isSnappy);
 	pos_left = true;
 	pos_back = false;
@@ -255,7 +285,7 @@ function leftFront(){
 
 function rightBack(){
 	if (pos_left!=true && pos_back==true) {return;}
-	thumpyMedia1.getCurrentPosition(onThumpyUpdate);
+	thumpyMedia[0].getCurrentPosition(onThumpyUpdate);
 	toggleImg(isThumpy);
 	pos_left = false;
 	pos_back = true;
@@ -263,7 +293,7 @@ function rightBack(){
 
 function rightFront(){
 	if (pos_left!=true && pos_back!=true) {return;}
-	snappyMedia1.getCurrentPosition(onSnappyUpdate);
+	snappyMedia[0].getCurrentPosition(onSnappyUpdate);
 	toggleImg(isSnappy);
 	pos_left = false;
 	pos_back = false;
@@ -271,25 +301,31 @@ function rightFront(){
 
 
 
-function onThumpyUpdate(pos){
+function onThumpyUpdate(pos, iter){
+    if (!iter) {iter = 0;}
 	//console.log("thump1=" + pos + " thump2=" + media1 + " thump2=" + media2);
-	if (pos>0 && pos<thumpyMedia1.getDuration()){
-		thumpyMedia2.play();
+	if (pos>0 && pos<thumpyMedia[iter].getDuration()){
+		if (iter+1>=thumpyMedia.length){return;}
+		thumpyMedia[iter+1].getCurrentPosition(function(p){onThumpyUpdate(p,iter+1)});
+		//thumpyMedia[iter+1].play();
 		//console.log("thump 2" + pos + " Duration=" + media1.getDuration());
 	} else {
-		thumpyMedia1.play();
+		thumpyMedia[iter].play();
 		//console.log("thump 1" + pos + " Duration=" + media1.getDuration());
 	}
 	navigator.notification.vibrate(80);
 }
 
-function onSnappyUpdate(pos){
+function onSnappyUpdate(pos, iter){
+    if (!iter) {iter = 0;}
 	//console.log("thump1=" + pos + " thump2=" + media1 + " thump2=" + media2);
-	if (pos>0 && pos<snappyMedia1.getDuration()){
-		snappyMedia2.play();
+	if (pos>0 && pos<snappyMedia[iter].getDuration()){
+		if (iter+1>=snappyMedia.length){return;}
+        snappyMedia[iter+1].getCurrentPosition(function(p){onSnappyUpdate(p,iter+1)});
+        //snappyMedia2.play();
 		//console.log("thump 2" + pos + " Duration=" + media1.getDuration());
 	} else {
-		snappyMedia1.play();
+		snappyMedia[iter].play();
 		//console.log("thump 1" + pos + " Duration=" + media1.getDuration());
 	}
 	navigator.notification.vibrate(40);

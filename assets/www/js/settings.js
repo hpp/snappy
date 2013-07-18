@@ -1,15 +1,22 @@
 joCache.set("settings", function() {
 	//turn off the snaps
-	stopWatch("settings");
-	
-	var autoResetToggle = new joToggle(autoReset).changeEvent.subscribe(toggleAutoRest);
+
+
+	console.log("entering Settings Card");
+
+    console.log("type of autoRest = " + typeof autoReset + ", autoReset = " + autoReset);
+	var autoResetToggle = new joToggle(autoReset);
+	autoResetToggle.select();
+	autoResetToggle.select();
+	autoResetToggle.changeEvent.subscribe(toggleAutoRest);
 	function toggleAutoRest(){
-		autoReset = !autoReset;	
+		autoReset = !autoReset;
+		localStorage.setItem("autoReset",autoReset);
 		console.log("auto reset changed to " + autoReset);
 	}
 		
 	var autoResetControl = new joFlexrow([
-		new joLabel("Auto Reset").setStyle("left"),
+		new joLabel("Advanced Mode (auto reset)").setStyle("left"),
 		autoResetToggle
 	]);
 	var tapTempo = new joButton("Tap Tempo").setStyle({id: "tap_tempo"}).selectEvent.subscribe(tapButtonSelected);
@@ -66,6 +73,11 @@ joCache.set("settings", function() {
 			if (soundOptionsIdx[type][value] != soundDBIdx[type]){
 				//update thumpDBIdx
 				soundDBIdx[type] = soundOptionsIdx[type][value];
+				if (type==isThumpy){
+				    localStorage.setItem("thumpDBIdx", soundDBIdx[type]);
+				} else {
+				    localStorage.setItem("snapDBIdx", soundDBIdx[type]);
+				}
 				//update sound file
 				gotSoundUriCB(type, fileName)
 			}		
@@ -108,7 +120,8 @@ joCache.set("settings", function() {
 	function goBack(){
 		App.stack.pop();
 		//turn on the snaps
-		startWatch("settings");
+		watching = true;
+		startWatch();
 	}
 	
 	var card = new joCard([
