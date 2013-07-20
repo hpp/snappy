@@ -28,7 +28,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a3a645b5-14a7-46b3-910d-b6da3ee74272" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/config.xml" afterPath="$PROJECT_DIR$/assets/www/config.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/js/thumpNsnapMechanics.js" afterPath="$PROJECT_DIR$/assets/www/js/thumpNsnapMechanics.js" />
     </list>
     <ignored path="snappy.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -106,15 +105,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cordova.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/www/cordova.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="11059" max-vertical-offset="125154">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="dbUtils.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/www/js/dbUtils.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -136,7 +126,16 @@
       <file leaf-file-name="config.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/www/config.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="4" selection-start="853" selection-end="853" vertical-scroll-proportion="0.96860987" vertical-offset="0" max-vertical-offset="594">
+            <state line="5" column="28" selection-start="244" selection-end="244" vertical-scroll-proportion="0.20179372" vertical-offset="0" max-vertical-offset="594">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1242">
               <folding />
             </state>
           </provider>
@@ -146,6 +145,15 @@
         <entry file="file://$PROJECT_DIR$/assets/www/js/menu.js">
           <provider selected="true" editor-type-id="text-editor">
             <state line="6" column="14" selection-start="222" selection-end="222" vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="648">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/xml/config.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="32" column="31" selection-start="1458" selection-end="1458" vertical-scroll-proportion="0.0" vertical-offset="108" max-vertical-offset="1188">
               <folding />
             </state>
           </provider>
@@ -164,15 +172,6 @@
         <entry file="file://$PROJECT_DIR$/assets/www/js/fileHandler.js">
           <provider selected="true" editor-type-id="text-editor">
             <state line="50" column="0" selection-start="1694" selection-end="1694" vertical-scroll-proportion="0.0" vertical-offset="882" max-vertical-offset="1584">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="config.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/xml/config.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="31" selection-start="1458" selection-end="1458" vertical-scroll-proportion="0.0" vertical-offset="558" max-vertical-offset="1188">
               <folding />
             </state>
           </provider>
@@ -219,8 +218,8 @@
         <option value="$PROJECT_DIR$/assets/www/js/settings.js" />
         <option value="$PROJECT_DIR$/assets/www/js/menu.js" />
         <option value="$PROJECT_DIR$/assets/www/index.html" />
-        <option value="$PROJECT_DIR$/assets/www/config.xml" />
         <option value="$PROJECT_DIR$/assets/www/js/thumpNsnapMechanics.js" />
+        <option value="$PROJECT_DIR$/assets/www/config.xml" />
       </list>
     </option>
   </component>
@@ -801,13 +800,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1035">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ant.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="353" />
@@ -835,13 +827,6 @@
     <entry file="file://$PROJECT_DIR$/snappy.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="14" selection-start="744" selection-end="744" vertical-scroll-proportion="0.54545456" vertical-offset="0" max-vertical-offset="440" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/xml/config.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="31" selection-start="1458" selection-end="1458" vertical-scroll-proportion="0.0" vertical-offset="216" max-vertical-offset="1188">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/www/cordova.js">
@@ -900,9 +885,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1035">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/xml/config.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="31" selection-start="1458" selection-end="1458" vertical-scroll-proportion="0.0" vertical-offset="216" max-vertical-offset="1188">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/assets/www/config.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="4" selection-start="853" selection-end="853" vertical-scroll-proportion="0.96860987" vertical-offset="0" max-vertical-offset="594">
+        <state line="5" column="28" selection-start="244" selection-end="244" vertical-scroll-proportion="0.20179372" vertical-offset="0" max-vertical-offset="594">
           <folding />
         </state>
       </provider>
