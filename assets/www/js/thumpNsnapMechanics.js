@@ -106,17 +106,27 @@ function getSoundCB() {
     });
 }
 
+function getPhoneGapPath() {
+
+    var path = window.location.pathname;
+    path = path.substr( path, path.length - 10 );
+    return 'file://' + path;
+
+};
+
+var snd = new Media( getPhoneGapPath() + 'test.wav' );
+
 function gotSoundUriCB(soundType, fileName, cb){
     console.log("Got Sound file " + fileName + "; type = " + soundType);
     if (soundType == isSnappy) {
-        snappyURI = androidPath + soundFolder[s] + fileName;
+        snappyURI = getPhoneGapPath() + soundFolder[s] + fileName; //androidPath + soundFolder[s] + fileName;
         console.log("snap sound = " + snappyURI);
         //alert(snappyURI);
         snappyMedia =loadMedia(snappyURI, snappyMedia);
         //snappyMedia1 = new Media(snappyURI, onMediaSuccess, onMediaError);
         //snappyMedia2 = new Media(snappyURI, onMediaSuccess, onMediaError);
     } else if (soundType == isThumpy) {
-        thumpyURI = androidPath + soundFolder[t] + fileName;
+        thumpyURI = getPhoneGapPath() + soundFolder[t] + fileName;
         console.log("thump sound = " + thumpyURI);
         //alert(thumpyURI);
         thumpyMedia = loadMedia(thumpyURI,thumpyMedia);
