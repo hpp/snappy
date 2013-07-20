@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.harmonicprocesses.thumpnsnap"
+        versionCode="2"
+        version   = "1.0.1">
+
+    <!-- versionCode is optional and Android only -->
+
+    <name>Air Drums Thump N Snap</name>
+
+    <description>
+        Turns a mobile device into an air drumstick. Depending on how the device is held will produce either a thump or a snap. Enjoy!
+    </description>
+
+    <author href="http://www.mypromotank.com/hpp" email="harmonicproc@gmail.com">
+        Joe Walter
+    </author>
+
+    <preference name="phonegap-version" value="2.9.0" />
+    <preference name="prerendered-icon" value="true" />
+    <preference name="permissions" value="none"/>
+
+    <feature name="http://api.phonegap.com/1.0/file"/>
+    <feature name="http://api.phonegap.com/1.0/geolocation"/>
+    <feature name="http://api.phonegap.com/1.0/media"/>
+    <feature name="http://api.phonegap.com/1.0/notification"/>
+
+</widget>
