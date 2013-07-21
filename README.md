@@ -4,10 +4,20 @@ Thump N Snap
 Phonegap Project
 ===================
 
-This work is licensed under the Creative Commons 
-Attribution-ShareAlike 3.0 Unported License. 
-To view a copy of this license, visit 
-http://creativecommons.org/licenses/by-sa/3.0/.
+This file is part of com.harmonicprocesses.thumpnsnap or simply ThumpNSnap
+
+    ThumpNSnap is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ThumpNsnap is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ThumpNSnap.  If not, see <http://www.gnu.org/licenses/>.
 
 ===================
 
