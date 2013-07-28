@@ -21,4 +21,12 @@ This file is part of com.harmonicprocesses.thumpnsnap or simply ThumpNSnap
 
 ===================
 
+Thump N Snap is an Open Source Project. For a detailed introduction to the
+code please see 
+<http://harmonicprocesses.blogspot.com/2013/07/11-thump-n-snap-overview.html>.
 
+For questions and comments please contact <harmonicproc@gmail.com>
+
+
+Thanks for looking,
+'May the alter of being inject silence on your madness'
