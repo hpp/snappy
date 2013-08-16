@@ -4,11 +4,17 @@ joCache.set("menu", function() {
 		{ title: "More", id: "more" },
 		{ title: "About", id: "about" }
 	]).selectEvent.subscribe(function(id) {
-	    if(id=="settings"){
-	        stopWatch();
-	        watching = false;
-	    }
-		App.stack.push(joCache.get(id));
+	    var card = joCache.get(id);
+
+		App.stack.push(card);
+
+        if(id=="settings"){
+            stopWatch();
+            watching = false;
+            joDefer(function() {
+                card.sensitivitySlider.draw();
+            });
+        }
 		pop();
 	});
 	

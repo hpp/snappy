@@ -10,6 +10,7 @@ var soundDBIdx = [ null, null];
 var toggleImgReady = [ 1, 1];
 var isThumpy = 1, isSnappy = 0, t = 1, s = 0;
 var currentCard = "Main";
+var sensitivity = 0.5;
 
 window.URL = window.URL || window.webkitURL;
 
@@ -54,6 +55,8 @@ function onDeviceReady() {
 	soundDBIdx[t] = Number(window.localStorage.getItem("thumpDBIdx"));
 	soundDBIdx[s] = Number(window.localStorage.getItem("snapDBIdx"));
 
+	sensitivity = Number(window.localStorage.getItem("sensitivity"));
+
     console.log("autoReset="+autoReset+" tempo="+tempo+"thumpIdx="+soundDBIdx[t]+" snapDBIdx="+soundDBIdx[s]);
 	if(autoReset==null||typeof autoReset != 'boolean'){
 		autoReset = false;
@@ -75,6 +78,12 @@ function onDeviceReady() {
 		localStorage.setItem("snapDBIdx", soundDBIdx[s]);
 	}
 	//console.log("k");
+
+    //console.log("k");
+    if(sensitivity==null||sensitivity==0){
+        sensitivity=0.5;
+        localStorage.setItem("sensitivity", sensitivity);
+    }
 
 	console.log("autoReset="+autoReset+" tempo="+tempo+"thumpIdx="+soundDBIdx[t]+" snapDBIdx="+soundDBIdx[s]);
 	dbInit(getSoundCB);
@@ -216,7 +225,7 @@ function onAccelSuccess(acceleration) {
 
 function normalAutoReset(acceleration){
     //console.log("autoResetfalse="+autoReset);
- 	if (acceleration.x<-0.5){
+ 	if (acceleration.x<-sensitivity){
  		resetBeat = true;
  		if (acceleration.z<0){
 			document.getElementById("thumpy_img").src="thumpy_ready.png";
@@ -225,7 +234,7 @@ function normalAutoReset(acceleration){
 			document.getElementById("snappy_img").src="snappy_ready.png";
 			document.getElementById("thumpy_img").src="thumpy.png";
 		}
- 	} else if (acceleration.x>0.5) {
+ 	} else if (acceleration.x>sensitivity) {
  		if (resetBeat==true){
  			if (acceleration.z<0){
  				thumpyMedia[0].getCurrentPosition(onThumpyUpdate);
@@ -262,16 +271,16 @@ function toggleImg(sType){
 
 function advancedAutoReset(a){
 	//alert("made it to onAutoReset");
-	if (a.x<-0.5){
-		if (a.z<-0.5){
+	if (a.x<-sensitivity){
+		if (a.z<sensitivity){
 			leftBack();			
-		} else if (a.z>0.5){
+		} else if (a.z>sensitivity){
 			leftFront();
 		}
-	} else if (a.x>0.5){
-		if (a.z<-0.5){
+	} else if (a.x>sensitivity){
+		if (a.z<-sensitivity){
 			rightBack();
-		} else if (a.z>0.5){
+		} else if (a.z>sensitivity){
 			rightFront();
 		}
 	}

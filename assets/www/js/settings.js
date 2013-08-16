@@ -24,6 +24,41 @@ joCache.set("settings", function() {
 		joFocus.clear();
 		tap();
 	}
+
+    console.log("sensitivity = " + sensitivity);
+	var sensitivitySlider = new joSlider(sensitivity);
+	sensitivitySlider.setRange(0, 5, 0.5);
+	sensitivitySlider.changeEvent.subscribe(sensitivitySliderChange, this);
+	function sensitivitySliderChange(v) {
+        sensitivity = v;
+        localStorage.setItem("sensitivity",sensitivity);
+        document.getElementById("sensitivity").innerHTML = "Sensitivity - " + sensitivity;
+	}
+
+	var sensitivitySliderGroup = new joGroup([
+	    new joLabel("Sensitivity = " + sensitivity).setStyle({id: "sensitivity"}),
+        sensitivitySlider
+	]);//*/
+/*
+    //After you setup your control and it will reposition the thumb appropriately.  A trick I used to make it look less abrupt was to add a quick CSS animation to it.  Here's the CSS:
+    joDefer(function() {
+      sensitivitySlider.draw();
+    });
+
+   // And the function I call:
+/*
+    function animate(o) {
+      joDOM.addCSSClass(o, "animate");
+      joDefer(function() {joDOM.removeCSSClass(o, "animate");});
+    }
+
+    //Just add that function call right before joSlider and the thumb will slide into position:
+
+    joDefer(function() {
+      animate(sensitivitySlider);
+      sensitivitySlider.draw();
+    });//*/
+
 	
 	var tempoText = "Tempo = "+ Math.floor((60000/(tempo *32)))+"bpm";
 	var tempoHTML = new joHTML("<p id='tempo'>" + tempoText + "</p>");
@@ -123,13 +158,15 @@ joCache.set("settings", function() {
 		watching = true;
 		startWatch();
 	}
-	
+
+	console.log("Got Settings Card")
 	var card = new joCard([
 		new joTitle("Thump N Snap - Settings"),
 		new joGroup([
 			autoResetControl,
 			tempoHTML,
 			tapTempo,
+			sensitivitySliderGroup,
 			thumpySoundLabel,
 			thumpyFileBox,
 			snappySoundLabel,
@@ -138,9 +175,10 @@ joCache.set("settings", function() {
 		backButton,
 		invisibleHTML
 	]);
-	
-	
-	return card;
+
+    card.sensitivitySlider = sensitivitySlider;
+
+    return card;
 });
 
 
