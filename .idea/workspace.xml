@@ -28,13 +28,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a3a645b5-14a7-46b3-910d-b6da3ee74272" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/config.xml" afterPath="$PROJECT_DIR$/assets/www/config.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/css/jo.css" afterPath="$PROJECT_DIR$/assets/www/css/jo.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/js/jo_min.js" afterPath="$PROJECT_DIR$/assets/www/js/jo_min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/js/menu.js" afterPath="$PROJECT_DIR$/assets/www/js/menu.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/css/sample.html" afterPath="$PROJECT_DIR$/assets/www/css/sample.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/js/settings.js" afterPath="$PROJECT_DIR$/assets/www/js/settings.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/js/thumpNsnapMechanics.js" afterPath="$PROJECT_DIR$/assets/www/js/thumpNsnapMechanics.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="snappy.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -136,7 +129,7 @@
       <file leaf-file-name="config.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/www/config.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="49" selection-start="848" selection-end="848" vertical-scroll-proportion="0.6457399" vertical-offset="108" max-vertical-offset="630">
+            <state line="4" column="23" selection-start="214" selection-end="214" vertical-scroll-proportion="0.16143498" vertical-offset="0" max-vertical-offset="630">
               <folding />
             </state>
           </provider>
@@ -228,8 +221,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="2086" />
-    <option name="y" value="121" />
+    <option name="x" value="2087" />
+    <option name="y" value="120" />
     <option name="width" value="1676" />
     <option name="height" value="933" />
   </component>
@@ -684,7 +677,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="2086" y="121" width="1676" height="933" extended-state="0" />
+    <frame x="2087" y="120" width="1676" height="933" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -902,7 +895,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/www/config.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="49" selection-start="848" selection-end="848" vertical-scroll-proportion="0.6457399" vertical-offset="108" max-vertical-offset="630">
+        <state line="4" column="23" selection-start="214" selection-end="214" vertical-scroll-proportion="0.16143498" vertical-offset="0" max-vertical-offset="630">
           <folding />
         </state>
       </provider>
