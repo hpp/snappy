@@ -21,7 +21,7 @@ var set = false;
 // The watch id references the current `watchAcceleration`
 var watchID = null;
 // media variables
-var numberOfSnaps = 4;
+var numberOfSnaps = 8;
 var thumpyMedia = new Array(numberOfSnaps);
 var snappyMedia = new Array(numberOfSnaps);
 var soundMedia = [snappyMedia,thumpyMedia];
@@ -235,7 +235,7 @@ function onAccelSuccess(acceleration) {
 
 function playMedia(soundType){
     //soundMedia[soundType][MediaIncrement[soundType]++].play();
-    if (MediaIncrement[soundType]>=4){
+    if (MediaIncrement[soundType]>=numberOfSnaps){
         MediaIncrement[soundType]=0;
     }
     //soundMedia[soundType][MediaIncrement[soundType]].play();//que the next beat
