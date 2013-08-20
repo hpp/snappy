@@ -28,6 +28,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a3a645b5-14a7-46b3-910d-b6da3ee74272" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/config.xml" afterPath="$PROJECT_DIR$/assets/www/config.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/www/js/thumpNsnapMechanics.js" afterPath="$PROJECT_DIR$/assets/www/js/thumpNsnapMechanics.js" />
     </list>
     <ignored path="snappy.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -102,7 +103,7 @@
       <file leaf-file-name="thumpNsnapMechanics.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/www/js/thumpNsnapMechanics.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="378" column="68" selection-start="11395" selection-end="11455" vertical-scroll-proportion="0.0" vertical-offset="6628" max-vertical-offset="7344">
+            <state line="240" column="6" selection-start="7736" selection-end="7736" vertical-scroll-proportion="0.0" vertical-offset="4774" max-vertical-offset="8172">
               <folding />
             </state>
           </provider>
@@ -111,7 +112,7 @@
       <file leaf-file-name="settings.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/www/js/settings.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="178" column="47" selection-start="5750" selection-end="5750" vertical-scroll-proportion="0.0" vertical-offset="2808" max-vertical-offset="3438">
+            <state line="178" column="47" selection-start="5750" selection-end="5750" vertical-scroll-proportion="0.0" vertical-offset="2754" max-vertical-offset="3438">
               <folding />
             </state>
           </provider>
@@ -129,7 +130,7 @@
       <file leaf-file-name="config.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/www/config.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="23" selection-start="214" selection-end="214" vertical-scroll-proportion="0.16143498" vertical-offset="0" max-vertical-offset="630">
+            <state line="8" column="0" selection-start="300" selection-end="300" vertical-scroll-proportion="0.32286996" vertical-offset="0" max-vertical-offset="630">
               <folding />
             </state>
           </provider>
@@ -211,18 +212,18 @@
         <option value="$PROJECT_DIR$/assets/www/js/dbUtils.js" />
         <option value="$PROJECT_DIR$/assets/www/js/loadSounds.js" />
         <option value="$PROJECT_DIR$/assets/www/index.html" />
-        <option value="$PROJECT_DIR$/assets/www/js/thumpNsnapMechanics.js" />
         <option value="$PROJECT_DIR$/assets/www/css/jo.css" />
         <option value="$PROJECT_DIR$/assets/www/js/jo_min.js" />
         <option value="$PROJECT_DIR$/assets/www/js/menu.js" />
         <option value="$PROJECT_DIR$/assets/www/js/settings.js" />
+        <option value="$PROJECT_DIR$/assets/www/js/thumpNsnapMechanics.js" />
         <option value="$PROJECT_DIR$/assets/www/config.xml" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="2087" />
-    <option name="y" value="120" />
+    <option name="x" value="2030" />
+    <option name="y" value="117" />
     <option name="width" value="1676" />
     <option name="height" value="933" />
   </component>
@@ -677,14 +678,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="2087" y="120" width="1676" height="933" extended-state="0" />
+    <frame x="2030" y="117" width="1676" height="933" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39258313" sideWeight="0.71068794" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39258313" sideWeight="0.28931203" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -692,18 +693,18 @@
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32736573" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5089514" sideWeight="0.7340295" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.39969605" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.39969605" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21314496" sideWeight="0.60741687" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30818415" sideWeight="0.47539848" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -848,33 +849,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1035">
-          <folding>
-            <element signature="e#2651#2669#0" expanded="false" />
-            <element signature="e#2806#2824#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/www/js/thumpNsnapMechanics.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="378" column="68" selection-start="11395" selection-end="11455" vertical-scroll-proportion="0.0" vertical-offset="6628" max-vertical-offset="7344">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/www/js/jo_min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="108">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/www/js/settings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="178" column="47" selection-start="5750" selection-end="5750" vertical-scroll-proportion="0.0" vertical-offset="2808" max-vertical-offset="3438">
           <folding />
         </state>
       </provider>
@@ -886,6 +863,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1035">
+          <folding>
+            <element signature="e#2651#2669#0" expanded="false" />
+            <element signature="e#2806#2824#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/assets/www/js/menu.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="9" selection-start="458" selection-end="458" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="756">
@@ -893,9 +880,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/assets/www/js/settings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="178" column="47" selection-start="5750" selection-end="5750" vertical-scroll-proportion="0.0" vertical-offset="2808" max-vertical-offset="3438">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/www/js/thumpNsnapMechanics.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="240" column="6" selection-start="7736" selection-end="7736" vertical-scroll-proportion="0.0" vertical-offset="4774" max-vertical-offset="8172">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/assets/www/config.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="23" selection-start="214" selection-end="214" vertical-scroll-proportion="0.16143498" vertical-offset="0" max-vertical-offset="630">
+        <state line="8" column="0" selection-start="300" selection-end="300" vertical-scroll-proportion="0.32286996" vertical-offset="0" max-vertical-offset="630">
           <folding />
         </state>
       </provider>

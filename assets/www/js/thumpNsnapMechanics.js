@@ -24,6 +24,12 @@ var watchID = null;
 var numberOfSnaps = 4;
 var thumpyMedia = new Array(numberOfSnaps);
 var snappyMedia = new Array(numberOfSnaps);
+var soundMedia = [snappyMedia,thumpyMedia];
+var MediaStatus = new Array(2);
+var MediaIncrement = [0,0];
+MediaStatus[s] = new Array(numberOfSnaps);
+MediaStatus[t] = new Array(numberOfSnaps);
+
 
 var resetBeat = true;
 var androidPath = "file:///android_asset/www/"; //this is only android, overright this
@@ -131,14 +137,14 @@ function gotSoundUriCB(soundType, fileName, cb){
         snappyURI = getPhoneGapPath() + soundFolder[s] + fileName; //androidPath + soundFolder[s] + fileName;
         console.log("snap sound = " + snappyURI);
         //alert(snappyURI);
-        snappyMedia =loadMedia(snappyURI, snappyMedia);
+        snappyMedia =loadMedia(snappyURI, snappyMedia,soundType);
         //snappyMedia1 = new Media(snappyURI, onMediaSuccess, onMediaError);
         //snappyMedia2 = new Media(snappyURI, onMediaSuccess, onMediaError);
     } else if (soundType == isThumpy) {
         thumpyURI = getPhoneGapPath() + soundFolder[t] + fileName;
         console.log("thump sound = " + thumpyURI);
         //alert(thumpyURI);
-        thumpyMedia = loadMedia(thumpyURI,thumpyMedia);
+        thumpyMedia = loadMedia(thumpyURI,thumpyMedia,soundType);
         //thumpyMedia1 = new Media(thumpyURI, onMediaSuccess, onMediaError);
         //thumpyMedia2 = new Media(thumpyURI, onMediaSuccess, onMediaError);
     }
@@ -147,11 +153,15 @@ function gotSoundUriCB(soundType, fileName, cb){
     }
 }
 
-function loadMedia(URI, MediaArray) {
+function loadMedia(URI, MediaArray,soundType) {
     for (i=0;i<MediaArray.length;i++){
-        MediaArray[i]=new Media(URI, onMediaSuccess, onMediaError);
+        MediaArray[i]=new Media(URI, onMediaSuccess, onMediaError);//, function(status){updateMediaStatus(status,i,soundType);});
     }
     return MediaArray;
+}
+
+function updateMediaStatus(status,index,soundType){
+    MediaStatus[soundType][index] = status;
 }
 
 function setPath(){
@@ -223,11 +233,31 @@ function onAccelSuccess(acceleration) {
     }
 }
 
+function playMedia(soundType){
+    //soundMedia[soundType][MediaIncrement[soundType]++].play();
+    if (MediaIncrement[soundType]>=4){
+        MediaIncrement[soundType]=0;
+    }
+    //soundMedia[soundType][MediaIncrement[soundType]].play();//que the next beat
+    //soundMedia[soundType][MediaIncrement[soundType]].pause();
+    /*
+    depth = typeof depth !== 'undefined' ? depth : 0;
+
+    if (depth>numberOfSnaps){
+        return;
+    } else if (MediaStatus[soundType][depth]==1 || MediaStatus[soundType][depth]==2){
+        playMedia(depth+1);
+    } else
+    soundMedia[soundType][depth].play();//*/
+}
+
+
 function normalAutoReset(acceleration){
     //console.log("autoResetfalse="+autoReset);
  	if (acceleration.x<-sensitivity){
  		resetBeat = true;
  		if (acceleration.z<0){
+ 		    //no need to play so no need to set image up down a call
 			document.getElementById("thumpy_img").src="thumpy_ready.png";
 			document.getElementById("snappy_img").src="snappy.png";
 		} else {
@@ -237,33 +267,45 @@ function normalAutoReset(acceleration){
  	} else if (acceleration.x>sensitivity) {
  		if (resetBeat==true){
  			if (acceleration.z<0){
- 				thumpyMedia[0].getCurrentPosition(onThumpyUpdate);
- 				document.getElementById("thumpy_img").src="thumpy_stomp.png";
+ 			    soundMedia[t][MediaIncrement[t]++].play();
+ 				playMedia(t);
+ 				//thumpyMedia[0].getCurrentPosition(onThumpyUpdate);
+                updateImg(t,"thumpy_stomp.png");
  			} else {
- 				snappyMedia[0].getCurrentPosition(onSnappyUpdate);
- 				document.getElementById("snappy_img").src="snappy_snap.png";
+ 				soundMedia[s][MediaIncrement[s]++].play();
+ 				playMedia(s);
+ 				//snappyMedia[0].getCurrentPosition(onSnappyUpdate);
+ 				updateImg(s,"snappy_snap.png");
  			}
  			resetBeat=false;
  		}
  	}
 }
 
+function updateImg(sType,img){
+    if (sType == isSnappy){
+         document.getElementById("snappy_img").src=img;
+    } else {
+         document.getElementById("thumpy_img").src=img;
+    }
+}
+
 function toggleImg(sType){
     console.log("toggle image type = " + sType + ", toggleImgReady = " + toggleImgReady);
     if (sType == isSnappy){
         if (toggleImgReady[t]!=0){
-            document.getElementById("snappy_img").src="snappy_snap.png";
+            updateImg(s,"snappy_snap.png");
             toggleImgReady[t] = 0;
         } else {
-            document.getElementById("snappy_img").src="snappy_ready.png";
+            updateImg(s,"snappy_ready.png");
             toggleImgReady[t] = 1;
         }
     } else {
         if (toggleImgReady[s]!=0){
-            document.getElementById("thumpy_img").src="thumpy_stomp.png";
+            updateImg(t,"thumpy_stomp.png");
             toggleImgReady[s] = 0;
         } else {
-            document.getElementById("thumpy_img").src="thumpy_ready.png";
+            updateImg(t,"thumpy_ready.png");
             toggleImgReady[s] = 1;
         }
     }
@@ -288,7 +330,8 @@ function advancedAutoReset(a){
 
 function leftBack(){
 	if (pos_left==true && pos_back==true) {return;}
-	thumpyMedia[0].getCurrentPosition(onThumpyUpdate);
+	soundMedia[t][MediaIncrement[t]++].play();
+	playMedia(t);
 	toggleImg(isThumpy);
 	pos_left = true;
 	pos_back = true;
@@ -296,7 +339,8 @@ function leftBack(){
 
 function leftFront(){
 	if (pos_left==true && pos_back!=true) {return;}
-	snappyMedia[0].getCurrentPosition(onSnappyUpdate);
+	soundMedia[s][MediaIncrement[s]++].play();
+	playMedia(s);
 	toggleImg(isSnappy);
 	pos_left = true;
 	pos_back = false;
@@ -304,7 +348,8 @@ function leftFront(){
 
 function rightBack(){
 	if (pos_left!=true && pos_back==true) {return;}
-	thumpyMedia[0].getCurrentPosition(onThumpyUpdate);
+	soundMedia[t][MediaIncrement[t]++].play();
+	playMedia(t);
 	toggleImg(isThumpy);
 	pos_left = false;
 	pos_back = true;
@@ -312,7 +357,8 @@ function rightBack(){
 
 function rightFront(){
 	if (pos_left!=true && pos_back!=true) {return;}
-	snappyMedia[0].getCurrentPosition(onSnappyUpdate);
+	soundMedia[s][MediaIncrement[s]++].play();
+	playMedia(s);
 	toggleImg(isSnappy);
 	pos_left = false;
 	pos_back = false;
